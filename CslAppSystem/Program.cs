@@ -1,5 +1,4 @@
 ﻿using CslAppSystem.Models;
-using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -196,10 +195,8 @@ namespace CslAppSystem
             {
                 Menu(left);
                 string menu = Field.Read(left + 9, 10, 3, "").Trim();
-                if (menu == "0" || menu == "00" || menu == "000")
-                    break;
-                if (Field.EscapePressed)
-                    break;
+                if (menu == "0" || menu == "00" || menu == "000") break;
+                if (Field.EscapePressed) break;
                 switch (menu.Trim())
                 {
                     case "0":
