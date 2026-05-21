@@ -18,6 +18,13 @@ namespace CslAppSystem.Models
             return _connection.Query<People>("SELECT id AS Id, name as Name, date_birthday as DateBirthday FROM people ORDER BY id ASC");
         }
 
+        public IEnumerable<People> Get(string name)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("name", $"%{name}%");
+            return _connection.Query<People>("SELECT id AS Id, name as Name, date_birthday as DateBirthday FROM people WHERE name LIKE @name ORDER BY name ASC", parameters);
+        }
+
         public People Get(long id)
         {
             DynamicParameters parameters = new DynamicParameters();
