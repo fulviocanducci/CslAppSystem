@@ -70,8 +70,10 @@ namespace CslAppSystem
             int leftRead = left + 11;
             Console.SetCursorPosition(left, 5);
             Console.Write("Nome......: ");
+            Field.View(leftRead, 6, 50, "");
             Console.SetCursorPosition(left, 6);
             Console.Write("Data Nasc.: ");
+            Field.View(leftRead, 6, 10, "00/00/0000");
             string name = Field.Read(leftRead, 5, 50);
             if (Field.EscapePressed)
             {
@@ -99,8 +101,9 @@ namespace CslAppSystem
         {
             People people = null;
             int leftRead = left + 11;
-            while (true) {
-                Console.Clear();                
+            while (true)
+            {
+                Console.Clear();
                 Console.SetCursorPosition(left, 5);
                 Console.Write("Id......: ");
                 string id = Field.Read(leftRead, 5, 5);
@@ -117,7 +120,7 @@ namespace CslAppSystem
                 {
                     break;
                 }
-                else 
+                else
                 {
                     Console.SetCursorPosition(left, 6);
                     Console.Write("Código inválido, pressione <Enter>");
@@ -166,19 +169,15 @@ namespace CslAppSystem
                 Console.WriteLine("{0,5} {1,-52} {2,-10:dd/MM/yyyy}", people.Id, people.Name, people.DateBirthday);
             }
             Console.Write("Pessoa listadas com êxito. Pressione <ENTER>");
-            Console.Read();
+            Console.ReadKey(true);
         }
 
         static void Main(string[] args)
         {
             ConfigureMysql();
-
             int left = 22;
-
-            string menu = string.Empty;
-            while (menu != "000")
+            while (true)
             {
-                menu = string.Empty;
                 Console.Clear();
                 Console.SetCursorPosition(left, 5);
                 Console.WriteLine("001 - Lista de Nomes");
@@ -190,11 +189,18 @@ namespace CslAppSystem
                 Console.WriteLine("000 - Sair");
                 Console.SetCursorPosition(left, 9);
                 Console.Write("Escolha: ");
-                menu = Field.Read(left + 9, 9, 3, "");
-                Console.Write(menu);
-                Console.ReadKey();
+                string menu = Field.Read(left + 9, 9, 3, "").Trim();
+                if (menu == "0" || menu == "00" || menu == "000")
+                    break;
+                if (Field.EscapePressed) 
+                    break;
                 switch (menu.Trim())
                 {
+                    case "0":
+                    case "00":
+                    case "000":
+                        Dispose();
+                        break;
                     case "1":
                     case "01":
                     case "001":
@@ -210,27 +216,24 @@ namespace CslAppSystem
                             {
                                 Console.SetCursorPosition(left, 7);
                                 Console.Write("Pessoa inserida com êxito. Pressione <ENTER>");
-                                Console.ReadKey();
                             }
                             else
                             {
                                 Console.SetCursorPosition(left, 7);
                                 Console.Write("Cancelado. Pressione <ENTER>");
-                                Console.ReadKey();
                             }
+                            Console.ReadKey(true);
                             break;
                         }
                     case "3":
                     case "03":
                     case "003":
-                        {                            
+                        {
                             Update(left);
                             break;
                         }
                 }
-            }
-
-            Dispose();
+            }            
         }
     }
 }

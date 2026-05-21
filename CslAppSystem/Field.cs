@@ -9,11 +9,7 @@ namespace CslAppSystem
 
         public static bool EscapePressed { get; private set; }
 
-        public static string Read(
-            int left,
-            int top,
-            int maxLength,
-            string initialValue = "")
+        public static string Read(int left, int top, int maxLength, string initialValue = "")
         {
             EscapePressed = false;
 
@@ -50,7 +46,11 @@ namespace CslAppSystem
 
                 // ENTER
                 if (key.Key == ConsoleKey.Enter)
+                {
+                    while (Console.KeyAvailable)
+                        Console.ReadKey(true);
                     break;
+                }
 
                 // BACKSPACE
                 if (key.Key == ConsoleKey.Backspace)
@@ -94,11 +94,7 @@ namespace CslAppSystem
             return new string(buffer).TrimEnd();
         }
 
-        public static string Read(
-    int left,
-    int top,
-    string mask,
-    string initialValue = "")
+        public static string Read(int left, int top, string mask, string initialValue = "")
         {
             EscapePressed = false;
 
@@ -160,7 +156,11 @@ namespace CslAppSystem
 
                 // ENTER
                 if (key.Key == ConsoleKey.Enter)
+                {
+                    while (Console.KeyAvailable)
+                        Console.ReadKey(true);
                     break;
+                }
 
                 // BACKSPACE
                 if (key.Key == ConsoleKey.Backspace)
